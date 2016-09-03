@@ -5,9 +5,9 @@ var path = require('path');
 // Webpack Config
 var webpackConfig = {
   entry: {
-    'polyfills': './src/polyfills.ts',
-    'vendor': './src/vendor.ts',
-    'app': './src/app.ts',
+    'polyfills': './src/polyfills.browser.ts',
+    'vendor': './src/vendor.browser.ts',
+    'main': './src/main.browser.ts',
   },
 
   output: {
@@ -15,8 +15,9 @@ var webpackConfig = {
   },
 
   plugins: [
+    new webpack.optimize.OccurenceOrderPlugin(true),
     new webpack.optimize.CommonsChunkPlugin({
-      name: ['app', 'vendor', 'polyfills'],
+      name: ['main', 'vendor', 'polyfills'],
       minChunks: Infinity
     }),
   ],
@@ -26,9 +27,14 @@ var webpackConfig = {
       // .ts files for TypeScript
       {
         test: /\.ts$/,
-        loader: 'awesome-typescript-loader'
-      },
-
+        loaders: ['awesome-typescript-loader', 'angular2-template-loader']
+      }, {
+        test: /\.css$/,
+        loaders: ['to-string-loader', 'css-loader']
+      }, {
+        test: /\.html$/,
+        loader: 'raw-loader'
+      }
     ]
   }
 
@@ -46,36 +52,9 @@ var defaultConfig = {
     chunkFilename: '[id].chunk.js'
   },
 
-  module: {
-    preLoaders: [{
-      test: /\.js$/,
-      loader: 'source-map-loader',
-      exclude: [
-        // these packages have problems with their sourcemaps
-        path.join(__dirname, 'node_modules', 'rxjs'),
-        path.join(__dirname, 'node_modules', '@angular2-material'),
-        path.join(__dirname, 'node_modules', '@angular'),
-      ]
-    }],
-    noParse: [
-      path.join(__dirname, 'node_modules', 'zone.js', 'dist'),
-      path.join(__dirname, 'node_modules', 'angular2', 'bundles')
-    ]
-  },
-
   resolve: {
     root: [path.join(__dirname, 'src')],
-    extensions: ['', '.ts', '.js'],
-    alias: {
-      'angular2/testing': path.join(__dirname, 'node_modules', '@angular', 'core', 'testing.js'),
-      '@angular/testing': path.join(__dirname, 'node_modules', '@angular', 'core', 'testing.js'),
-      'angular2/core': path.join(__dirname, 'node_modules', '@angular', 'core', 'index.js'),
-      'angular2/platform/browser': path.join(__dirname, 'node_modules', '@angular', 'platform-browser', 'index.js'),
-      'angular2/testing': path.join(__dirname, 'node_modules', '@angular', 'testing', 'index.js'),
-      'angular2/router': path.join(__dirname, 'node_modules', '@angular', 'router-deprecated', 'index.js'),
-      'angular2/http': path.join(__dirname, 'node_modules', '@angular', 'http', 'index.js'),
-      'angular2/http/testing': path.join(__dirname, 'node_modules', '@angular', 'http', 'testing.js')
-    },
+    extensions: ['', '.ts', '.js']
   },
 
   devServer: {
@@ -93,8 +72,8 @@ var defaultConfig = {
     Buffer: 0,
     clearImmediate: 0,
     setImmediate: 0
-  },
-}
+  }
+};
 
 var webpackMerge = require('webpack-merge');
 module.exports = webpackMerge(defaultConfig, webpackConfig);
