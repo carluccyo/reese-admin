@@ -95,13 +95,9 @@ module.exports = function makeWebpackConfig() {
       },
 
       // copy those assets to output
-      // {
-      //   test: /\.(png|jpe?g|gif|svg|woff|woff2|ttf|eot|ico)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-      //   loader: 'file?name=fonts/[name].[hash].[ext]?'
-      // },
       {
         test: /\.(png|jpe?g|gif|svg|woff|woff2|ttf|eot|ico)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-        loader: 'file?name=fonts/[name].[ext]'
+        loader: 'file?name=fonts/[name].[hash].[ext]?'
       },
 
       // Support for *.json files.
@@ -155,14 +151,15 @@ module.exports = function makeWebpackConfig() {
       },
 
       //font-awesome
-      { 
-        test: /\.((woff2?|svg)(\?v=[0-9]\.[0-9]\.[0-9]))|(woff2?|svg|jpe?g|png|gif|ico)$/, 
-        loader: 'url?limit=10000' 
-      },
-      { 
-        test: /\.((ttf|eot)(\?v=[0-9]\.[0-9]\.[0-9]))|(ttf|eot)$/, 
-        loader: 'file' 
+      // {
+      //   test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+      //   loader: "url-loader?limit=10000&minetype=application/font-woff"
+      // },
+      {
+        test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+        loader: "file-loader"
       }
+
     ]
   };
 

@@ -17,6 +17,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.min.js';
 
 import 'font-awesome/css/font-awesome.css';
+
 // import 'font-awesome/fonts/FontAwesome.otf';
 // import 'font-awesome/fonts/fontawesome-webfont.eot';
 // import 'font-awesome/fonts/fontawesome-webfont.svg';
