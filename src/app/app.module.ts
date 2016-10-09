@@ -11,6 +11,9 @@ import { routing } from './app.routing';
 
 import { removeNgStyles, createNewHosts } from '@angularclass/hmr';
 
+
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
+
 @NgModule({
   imports: [
     BrowserModule,
@@ -21,7 +24,8 @@ import { removeNgStyles, createNewHosts } from '@angularclass/hmr';
   declarations: [
     AppComponent,
     HomeComponent,
-    AboutComponent
+    AboutComponent,
+    DashboardComponent
   ],
   providers: [
     ApiService
@@ -29,10 +33,13 @@ import { removeNgStyles, createNewHosts } from '@angularclass/hmr';
   bootstrap: [AppComponent]
 })
 export class AppModule {
+
   constructor(public appRef: ApplicationRef) {}
+
   hmrOnInit(store) {
     console.log('HMR store', store);
   }
+
   hmrOnDestroy(store) {
     let cmpLocation = this.appRef.components.map(cmp => cmp.location.nativeElement);
     // recreate elements
@@ -40,9 +47,11 @@ export class AppModule {
     // remove styles
     removeNgStyles();
   }
+
   hmrAfterDestroy(store) {
     // display new elements
     store.disposeOldHosts();
     delete store.disposeOldHosts;
   }
+
 }

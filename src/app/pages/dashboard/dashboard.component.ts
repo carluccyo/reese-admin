@@ -1,12 +1,12 @@
 import {Component, ViewEncapsulation} from '@angular/core';
 
 @Component({
-  selector: 'dashboard',
+  selector: 'my-dashboard',
   encapsulation: ViewEncapsulation.None,
   styles: [require('./dashboard.scss')],
   template: require('./dashboard.html')
 })
-export class Dashboard {
+export class DashboardComponent {
 
   constructor() {
   }
