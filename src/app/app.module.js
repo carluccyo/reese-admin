@@ -47,7 +47,7 @@ var AppModule = (function () {
                 shared_1.ApiService
             ],
             bootstrap: [app_component_1.AppComponent]
-        }), 
+        }),
         __metadata('design:paramtypes', [core_1.ApplicationRef])
     ], AppModule);
     return AppModule;

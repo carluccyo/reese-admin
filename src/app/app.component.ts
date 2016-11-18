@@ -10,9 +10,12 @@ import '../style/app.scss';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
+
   url = 'https://github.com/carluccyo/reese-admin';
 
   constructor(private api: ApiService) {
     // Do something with api
   }
+
+
 }
